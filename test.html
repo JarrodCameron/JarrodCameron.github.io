@@ -2,90 +2,317 @@
 <html>
     <head>
     <meta charset="UTF-8">
-    <title>~/repos/JarrodCameron.github.io/test.c.html</title>
-    <meta name="Generator" content="Vim/8.2">
-    <meta name="plugin-version" content="vim8.1_v2">
-    <meta name="syntax" content="c">
-    <meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=,use_input_for_pc=fallback">
-    <meta name="colorscheme" content="gruvbox">
-    <style>
-    <!--
-    pre { white-space: pre-wrap; font-family: monospace; color: #ffd7af; background-color: #262626; }
-    body { font-family: monospace; color: #ffd7af; background-color: #262626; }
-    a { color: #83a598; }
-    .GruvboxAqua { color: #87af87; }
-    .GruvboxYellow { color: #ffaf00; }
-    .LineNr { color: #767676; }
-    .String { color: #afaf00; }
-    .GruvboxRed { color: #d75f5f; }
-    .Comment { color: #8a8a8a; }
-    .GruvboxOrange { color: #ff8700; }
-    .GruvboxPurple { color: #d787af; }
-    .GruvboxBlue { color: #83a598; }
-    -->
-    </style>
+    <title>~/</title>
+    <link rel="stylesheet" href="style.css">
 
     </head>
 
-    <body>
-    <h1><span class="GruvboxAqua">glibc stuff</span></h1>
+    <body><main>
+    <h1><span class="GruvboxAqua">Compiling glibc for Dummies</span></h1>
 
-    <a href="/glibc/glibc_2.24.tar.gz">glibc_2.24.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.24_64bit.tar.gz">ld_libc_2.24_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.24_32bit.tar.gz">ld_libc_2.24_32bit.tar.gz</a>
-    <br>
+	<h2>Step 1: Setting the Enviornment</h2>
 
-    <a href="/glibc/glibc_2.25.tar.gz">glibc_2.25.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.25_64bit.tar.gz">ld_libc_2.25_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.25_32bit.tar.gz">ld_libc_2.25_32bit.tar.gz</a>
-    <br>
+	<p>I like to use a Docker container for compiling since it makes installing
+	tools a whole lot easier, especially if you are on a meme distrobution
+	(e.g. Arch). To set up all the tools and activate the container use the
+	code below.</p>
 
-    <a href="/glibc/glibc_2.26.tar.gz">glibc_2.26.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.26_64bit.tar.gz">ld_libc_2.26_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.26_32bit.tar.gz">ld_libc_2.26_32bit.tar.gz</a>
-    <br>
+	<div class="code">
+<span class="Comment">#!/bin/sh</span><br>
+<br>
+<span class="GruvboxRed">set</span><span class="GruvboxBlue"> </span><span class="GruvboxOrange">-e</span><br>
+<br>
+<span class="GruvboxRed">cat</span> <span class="Normal">&gt;</span> Dockerfile <span class="Normal">&lt;&lt; EOF</span><br>
+<span class="String">FROM debian:stretch</span><br>
+<span class="String">ENV LC_CTYPE C.UTF-8</span><br>
+<span class="String">RUN dpkg --add-architecture i386</span><br>
+<span class="String">RUN apt-get update</span><br>
+<span class="String">RUN apt-get install -y gawk bison build-essential curl gcc gcc-multilib git libc6:i386 make python python3</span><br>
+EOF<br><br>
+docker build <span class="GruvboxOrange">-t</span> debian:stretch .<br>
+docker run <span class="GruvboxOrange">-ti</span> <span class="GruvboxOrange">--rm</span> debian:stretch /bin/bash<br>
+	</div>
 
-    <a href="/glibc/glibc_2.27.tar.gz">glibc_2.27.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.27_64bit.tar.gz">ld_libc_2.27_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.27_32bit.tar.gz">ld_libc_2.27_32bit.tar.gz</a>
-    <br>
+	<h2>Step 2: Preparing the Repisotry</h2>
 
-    <a href="/glibc/glibc_2.28.tar.gz">glibc_2.28.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.28_64bit.tar.gz">ld_libc_2.28_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.28_32bit.tar.gz">ld_libc_2.28_32bit.tar.gz</a>
-    <br>
+	<p>In this demonstration we will be compiling glibc version 2.29. For a
+	different version of glibc change the "VER" variable below. First
+	things first, clone the repo and "checkout" the release version.
+	Finally, create and move into a seperate directory, here we use the
+	"build" directory.</p>
 
-    <a href="/glibc/glibc_2.29.tar.gz">glibc_2.29.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.29_64bit.tar.gz">ld_libc_2.29_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.29_32bit.tar.gz">ld_libc_2.29_32bit.tar.gz</a>
-    <br>
+	<div class="code">
+<span class="Comment">#!/bin/sh</span><br>
+<br>
+<span class="GruvboxRed">set</span><span class="GruvboxBlue"> </span><span class="GruvboxOrange">-e</span><br>
+<br>
+<span class="Comment"># Desired version number</span><br>
+<span class="GruvboxBlue">VER</span>=<span class="Normal">'</span><span class="String">2.29</span><span class="Normal">'</span><br>
+git clone git://sourceware.org/git/glibc.git<br>
+<span class="GruvboxRed">cd</span> glibc<br>
+git checkout <span class="Normal">&quot;</span><span class="String">release/</span><span class="GruvboxAqua">$VER</span><span class="String">/master</span><span class="Normal">&quot;</span> <span class="GruvboxOrange">-f</span><br>
+<br>
+<span class="GruvboxRed">mkdir</span> build<br>
+<span class="GruvboxRed">cd</span> build<br>
+	</div>
 
-    <a href="/glibc/glibc_2.30.tar.gz">glibc_2.30.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.30_64bit.tar.gz">ld_libc_2.30_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.30_32bit.tar.gz">ld_libc_2.30_32bit.tar.gz</a>
-    <br>
+	<h2>Step 3: Configure and Compile</h2>
 
-    <a href="/glibc/glibc_2.31.tar.gz">glibc_2.31.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.31_64bit.tar.gz">ld_libc_2.31_64bit.tar.gz</a>
-    <br>
-    <a href="/glibc/ld_libc_2.31_32bit.tar.gz">ld_libc_2.31_32bit.tar.gz</a>
-    <br>
+	<p>First run the configure script to setup any options for compiling.
+	The "--prefix" option is the only manditory option which specifies
+	where glibc will be installed, even though we will not be installing
+	anything. For 64-bit glibc run the following code in your shell of
+	choice.</p>
 
-    </body>
+	<div class="code">
+../configure <span class="GruvboxOrange">--prefix</span><span class="Normal">=</span><span class="Normal">'</span><span class="String">/usr</span><span class="Normal">'</span><br>
+make <span class="GruvboxOrange">-j</span> <span class="GruvboxOrange">`nproc`</span><br>
+	</div>
+
+	<p>For compiling 32-bit glibc:</p>
+
+	<div class="code">
+../configure <span class="GruvboxOrange">--prefix</span><span class="Normal">=</span><span class="Normal">'</span><span class="String">/usr</span><span class="Normal">'</span> <span class="GruvboxBlue">CC</span>=<span class="Normal">'</span><span class="String">gcc -m32</span><span class="Normal">'</span> <span class="GruvboxBlue">CXX</span>=<span class="Normal">'</span><span class="String">g++ -m32</span><span class="Normal">'</span> <span class="GruvboxOrange">--build</span><span class="Normal">=</span><span class="Normal">'</span><span class="String">i486-linux</span><span class="Normal">'</span> <span class="GruvboxOrange">--host</span><span class="Normal">=</span><span class="Normal">'</span><span class="String">i486-linux</span><span class="Normal">'</span><br>
+make <span class="GruvboxOrange">-j</span> <span class="GruvboxOrange">`nproc`</span><br>
+	</div>
+
+	<h2>Extra: Override Default libc</h2>
+
+	<p>Sometimes for a CTF it is neccessary to override the default libc
+	in an executable. The "LD_PRELOAD" environment variable can be
+	set to tell dynamic linker which library to load. For testing purposes we
+	will use the following C program:</p>
+
+	<pre><div class="code"><span class="Comment">/*</span><span class="Comment"> Compile: gcc prog.c </span><span class="Comment">*/</span>
+
+<span class="GruvboxAqua">#include </span><span class="String">&lt;stdio.h&gt;</span>
+<span class="GruvboxAqua">#include </span><span class="String">&lt;unistd.h&gt;</span>
+
+<span class="GruvboxYellow">int</span> main (<span class="GruvboxYellow">void</span>)
+{
+    printf(<span class="String">&quot;pid: </span><span class="GruvboxOrange">%d</span><span class="GruvboxOrange">\n</span><span class="String">&quot;</span>, getpid());
+    sleep(<span class="GruvboxPurple">999</span>);
+    <span class="GruvboxRed">return</span> <span class="GruvboxPurple">0</span>;
+}</div></pre>
+
+	<p>Compile and use the LD_PRELOAD trick...</p>
+
+	<div class="code">
+$ gcc prog.c<br>
+$ <span class="GruvboxBlue">LD_PRELOAD</span>=<span class="Normal">'</span><span class="String">./libc.so</span><span class="Normal">'</span> ./a.out<br>
+Segmentation fault <span class="GruvboxAqua">(</span><span class="GruvboxOrange">core dumped</span><span class="GruvboxAqua">)</span><br>
+	</div>
+
+	<p>To prevent the program from crashing we need to update the dynamic
+	linker in our executable. Using the "patchelf" program:</p>
+
+	<div class="code">
+$ gcc prog.c<br>
+$ patchelf <span class="GruvboxOrange">--set-interpreter</span> elf/ld.so ./a.out<br>
+	</div>
+
+	<p>Now run the program again using the same LD_PRELOAD trick. Use ^Z
+	(control-z) to suspend the process and checkout the memory map:</p>
+
+	<pre><div class="code">$ <span class="GruvboxBlue">LD_PRELOAD</span>=<span class="Normal">'</span><span class="String">./libc.so</span><span class="Normal">'</span> ./a.out
+pid: <span class="GruvboxPurple">94392</span>
+^Z
+<span class="Normal">[</span><span class="GruvboxPurple">1</span><span class="Normal">]</span>+  Stopped                 <span class="GruvboxBlue">LD_PRELOAD</span>=<span class="Normal">'</span><span class="String">./libc.so</span><span class="Normal">'</span> ./a.out
+$ <span class="GruvboxRed">cat</span> /proc/<span class="GruvboxPurple">94392</span>/maps
+5659a000-5659b000 r-xp 00000000            /root/glibc/build/a.out
+5659b000-5659c000 r--p 00000000            /root/glibc/build/a.out
+5659c000-5659d000 rw-p 00001000            /root/glibc/build/a.out
+565fc000-565fd000 rw-p 00001000            [heap]
+f7dec000-f7f9d000 r-xp 00000000            /root/glibc/build/libc.so
+f7f9d000-f7f9e000 ---p 001b1000            /root/glibc/build/libc.so
+f7f9e000-f7fa0000 r--p 001b1000            /root/glibc/build/libc.so
+f7fa0000-f7fa1000 rw-p 001b3000            /root/glibc/build/libc.so
+f7fa1000-f7fa4000 rw-p 00000000
+f7faa000-f7fac000 rw-p 00000000
+f7fac000-f7fb0000 r--p 00000000            [vvar]
+f7fb0000-f7fb2000 r-xp 00000000            [vdso]
+f7fb2000-f7fd5000 r-xp 00000000            /root/glibc/build/elf/ld.so
+f7fd5000-f7fd6000 r--p 00022000            /root/glibc/build/elf/ld.so
+f7fd6000-f7fd7000 rw-p 00023000            /root/glibc/build/elf/ld.so
+ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
+
+	<table>
+		<tr>
+			<th>Version 2.24</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.25</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.26</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.27</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.28</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.29</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.30</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<th>Version 2.31</th>
+			<th>SHA256</th>
+		</tr>
+		<tr>
+			<td>Source</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>32-bit build</td>
+			<td>TODO</td>
+		</tr>
+		<tr>
+			<td>64-bit build</td>
+			<td>TODO</td>
+		</tr>
+	</table>
+
+	<a href="/glibc/glibc_2.24.tar.gz">glibc_2.24.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.24.tar.gz">build-32bit_2.24.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.24.tar.gz">build-64bit_2.24.tar.gz</a> <br>
+
+	<a href="/glibc/glibc_2.25.tar.gz">glibc_2.25.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.25.tar.gz">build-32bit_2.25.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.25.tar.gz">build-64bit_2.25.tar.gz</a> <br>
+	<a href="/glibc/glibc_2.26.tar.gz">glibc_2.26.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.26.tar.gz">build-32bit_2.26.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.26.tar.gz">build-64bit_2.26.tar.gz</a> <br>
+	<a href="/glibc/glibc_2.27.tar.gz">glibc_2.27.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.27.tar.gz">build-32bit_2.27.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.27.tar.gz">build-64bit_2.27.tar.gz</a> <br>
+	<a href="/glibc/glibc_2.28.tar.gz">glibc_2.28.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.28.tar.gz">build-32bit_2.28.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.28.tar.gz">build-64bit_2.28.tar.gz</a> <br>
+	<a href="/glibc/glibc_2.29.tar.gz">glibc_2.29.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.29.tar.gz">build-32bit_2.29.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.29.tar.gz">build-64bit_2.29.tar.gz</a> <br>
+	<a href="/glibc/glibc_2.30.tar.gz">glibc_2.30.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.30.tar.gz">build-32bit_2.30.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.30.tar.gz">build-64bit_2.30.tar.gz</a> <br>
+	<a href="/glibc/glibc_2.31.tar.gz">glibc_2.31.tar.gz</a> <br>
+	<a href="/glibc/build-32bit_2.31.tar.gz">build-32bit_2.31.tar.gz</a> <br>
+	<a href="/glibc/build-64bit_2.31.tar.gz">build-64bit_2.31.tar.gz</a> <br>
+    </main></body>
 </html>
 <!-- vim: set foldmethod=manual : -->
