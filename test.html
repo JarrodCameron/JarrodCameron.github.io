@@ -10,10 +10,10 @@
     <body><main>
     <h1><span class="GruvboxAqua">Compiling glibc for Dummies</span></h1>
 
-	<h2>Step 1: Setting the Enviornment</h2>
+	<h2>Step 1: Setting the Environment</h2>
 
 	<p>I like to use a Docker container for compiling since it makes installing
-	tools a whole lot easier, especially if you are on a meme distrobution
+	tools a whole lot easier, especially if you are on a meme distribution
 	(e.g. Arch). To set up all the tools and activate the container use the
 	code below.</p>
 
@@ -33,19 +33,15 @@ docker build <span class="GruvboxOrange">-t</span> debian:stretch .<br>
 docker run <span class="GruvboxOrange">-ti</span> <span class="GruvboxOrange">--rm</span> debian:stretch /bin/bash<br>
 	</div>
 
-	<h2>Step 2: Preparing the Repisotry</h2>
+	<h2>Step 2: Preparing the Repository</h2>
 
 	<p>In this demonstration we will be compiling glibc version 2.29. For a
 	different version of glibc change the "VER" variable below. First
 	things first, clone the repo and "checkout" the release version.
-	Finally, create and move into a seperate directory, here we use the
+	Finally, create and move into a separate directory, here we use the
 	"build" directory.</p>
 
 	<div class="code">
-<span class="Comment">#!/bin/sh</span><br>
-<br>
-<span class="GruvboxRed">set</span><span class="GruvboxBlue"> </span><span class="GruvboxOrange">-e</span><br>
-<br>
 <span class="Comment"># Desired version number</span><br>
 <span class="GruvboxBlue">VER</span>=<span class="Normal">'</span><span class="String">2.29</span><span class="Normal">'</span><br>
 git clone git://sourceware.org/git/glibc.git<br>
@@ -59,7 +55,7 @@ git checkout <span class="Normal">&quot;</span><span class="String">release/</sp
 	<h2>Step 3: Configure and Compile</h2>
 
 	<p>First run the configure script to setup any options for compiling.
-	The "--prefix" option is the only manditory option which specifies
+	The "--prefix" option is the only mandatory option which specifies
 	where glibc will be installed, even though we will not be installing
 	anything. For 64-bit glibc run the following code in your shell of
 	choice.</p>
@@ -78,7 +74,7 @@ make <span class="GruvboxOrange">-j</span> <span class="GruvboxOrange">`nproc`</
 
 	<h2>Extra: Override Default libc</h2>
 
-	<p>Sometimes for a CTF it is neccessary to override the default libc
+	<p>Sometimes for a CTF it is necessary to override the default libc
 	in an executable. The "LD_PRELOAD" environment variable can be
 	set to tell dynamic linker which library to load. For testing purposes we
 	will use the following C program:</p>
@@ -107,7 +103,6 @@ Segmentation fault <span class="GruvboxAqua">(</span><span class="GruvboxOrange"
 	linker in our executable. Using the "patchelf" program:</p>
 
 	<div class="code">
-$ gcc prog.c<br>
 $ patchelf <span class="GruvboxOrange">--set-interpreter</span> elf/ld.so ./a.out<br>
 	</div>
 
@@ -136,22 +131,26 @@ f7fd5000-f7fd6000 r--p 00022000            /root/glibc/build/elf/ld.so
 f7fd6000-f7fd7000 rw-p 00023000            /root/glibc/build/elf/ld.so
 ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 
+	<h2>Precompiled glibc</h2>
+
+	<p>For those of us who are too lazy to compile glibc...</h2>
+
 	<table>
 		<tr>
 			<th>Version 2.24</th>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.24_glibc_source.tar.gz">Source</a></td>
+			<td>1f36dca447b2c982d117d9217ec0a83021967bf0915e3b8ea5007e5dd81b9f06</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.24_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>bd1ce2c4eaeb0cf0c5b91800cfa7be0425c438d6782976c01091a583521fa8c6</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.24_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>43985eb9572b46888dc5162e001837dd1b3980591e226c61a65dfd88ceeb6222</td>
 		</tr>
 	</table>
 
@@ -161,16 +160,16 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.25_glibc_source.tar.gz">Source</a></td>
+			<td>244c03f3adf7186310dd39bb09477c2955ba0e46547bb55085516e1f873f118c</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.25_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>512bd998fdb356338882d97d92e2fe515e06d8344d90a4d8798f7e05e1256965</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.25_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>83d72f5139d9f8b14cbd21115e6edfefa94736dd88ff0853fc105c352678e674</td>
 		</tr>
 	</table>
 
@@ -180,16 +179,16 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.26_glibc_source.tar.gz">Source</a></td>
+			<td>7a735b2558ad07a9f772ac6fae1d1a4748e7b7b3df6c9ec8dc69707d7ebda849</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.26_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>7f1b72c8550e8a6fbc06e7e77059a1175ea14879c837add0361544b928c2ee4d</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.26_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>99a5be3683ad83aad53a62a58cdbf8ddd1707d5ccdb64952a39737d7bd8adc4f</td>
 		</tr>
 	</table>
 
@@ -199,16 +198,16 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.27_glibc_source.tar.gz">Source</a></td>
+			<td>c12ef19ead2e05f163f25225a61ed90266f485375e7a8a6d2f267fca5078fb00</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.27_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>7716cd7f62bedca25f047bb7b2c9beb74654af62e3a487c04fcae3a433a20491</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.27_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>c72f0a83b8a940f6d8656450e28bc9f799ea03845b6131398a761fea3f9ff301</td>
 		</tr>
 	</table>
 
@@ -218,16 +217,16 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.28_glibc_source.tar.gz">Source</a></td>
+			<td>741cb7403885eafd6654507627d0596615a5e4c8ba645b62425f76e2bc9f9841</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.28_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>ff3c99bb61336b5a37bb523b799b6143c41689fedef8f5d659324f726230746d</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.28_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>c3361e6442cf95b9217add0c531aeae602711a1038df533513a2802ef08f8874</td>
 		</tr>
 	</table>
 
@@ -237,16 +236,16 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.29_glibc_source.tar.gz">Source</a></td>
+			<td>00da4df03d6e9cd3a19d68cb6237fe9fb0710f64fd26598dcd35894c043b2a08</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.29_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>2e311fb6b93c846f5d510be262c60aa6ec97360514108214d8ce285c337b5ffc</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.29_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>a2dfdf85df90917b1dd3db303ae86c774a27cc244bf555d61184b898dde543c0</td>
 		</tr>
 	</table>
 
@@ -256,16 +255,16 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.30_glibc_source.tar.gz">Source</a></td>
+			<td>1a7d57c181b9d3ef96f96645ef5f853aee234bb9a804023a32f78d80f7affe02</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.30_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>ed7d99eef39378511bbb3f41c090273dc646f0069efe202ca4d3bae321dd827b</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.30_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>e1cb5b832ce316777310565a9130c7021847e92fa0415ffef3917fe98df5da03</td>
 		</tr>
 	</table>
 
@@ -275,44 +274,18 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 			<th>SHA256</th>
 		</tr>
 		<tr>
-			<td>Source</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.31_glibc_source.tar.gz">Source</a></td>
+			<td>686e857487dc012c0bb5faf1bb22057f16953570a8d1be7a254d9d7b1c46d07d</td>
 		</tr>
 		<tr>
-			<td>32-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.31_glibc_build_32bit.tar.gz">32-bit build</a></td>
+			<td>c4371850521a5566d8416fc755a58df494fbf059167ec03057ff8470c6f84f72</td>
 		</tr>
 		<tr>
-			<td>64-bit build</td>
-			<td>TODO</td>
+			<td><a href="/glibc/2.31_glibc_build_64bit.tar.gz">64-bit build</a></td>
+			<td>fa38edecbe38198cb07a73e34d383448de25211fb51789ca325023db70d18932</td>
 		</tr>
 	</table>
 
-	<a href="/glibc/glibc_2.24.tar.gz">glibc_2.24.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.24.tar.gz">build-32bit_2.24.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.24.tar.gz">build-64bit_2.24.tar.gz</a> <br>
-
-	<a href="/glibc/glibc_2.25.tar.gz">glibc_2.25.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.25.tar.gz">build-32bit_2.25.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.25.tar.gz">build-64bit_2.25.tar.gz</a> <br>
-	<a href="/glibc/glibc_2.26.tar.gz">glibc_2.26.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.26.tar.gz">build-32bit_2.26.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.26.tar.gz">build-64bit_2.26.tar.gz</a> <br>
-	<a href="/glibc/glibc_2.27.tar.gz">glibc_2.27.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.27.tar.gz">build-32bit_2.27.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.27.tar.gz">build-64bit_2.27.tar.gz</a> <br>
-	<a href="/glibc/glibc_2.28.tar.gz">glibc_2.28.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.28.tar.gz">build-32bit_2.28.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.28.tar.gz">build-64bit_2.28.tar.gz</a> <br>
-	<a href="/glibc/glibc_2.29.tar.gz">glibc_2.29.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.29.tar.gz">build-32bit_2.29.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.29.tar.gz">build-64bit_2.29.tar.gz</a> <br>
-	<a href="/glibc/glibc_2.30.tar.gz">glibc_2.30.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.30.tar.gz">build-32bit_2.30.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.30.tar.gz">build-64bit_2.30.tar.gz</a> <br>
-	<a href="/glibc/glibc_2.31.tar.gz">glibc_2.31.tar.gz</a> <br>
-	<a href="/glibc/build-32bit_2.31.tar.gz">build-32bit_2.31.tar.gz</a> <br>
-	<a href="/glibc/build-64bit_2.31.tar.gz">build-64bit_2.31.tar.gz</a> <br>
     </main></body>
 </html>
-<!-- vim: set foldmethod=manual : -->
