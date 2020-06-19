@@ -287,5 +287,15 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 		</tr>
 	</table>
 
-    </main></body>
+	<h1><span class="GruvboxAqua">C Chunks</span></h1>
+
+	<h2>fgets(char *s, int size, FILE *stream);</h2>
+
+	<p>fgets will never read "size" bytes. After the bytes have been read
+	fgets will try to append a new line character ('\n') to the end of the
+	payload. If there is not enough space (i.e. the user entered "size-1"
+	bytes) no '\n' is inserted. fgets will ALWAYS store a '\0' at the end
+	of the payload. A '\0' is never stored in "s[size]".</p>
+
+	</main></body>
 </html>
