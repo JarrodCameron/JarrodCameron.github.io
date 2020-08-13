@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>~/c/</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body><main>
+
+    <h1><span class="GruvboxAqua">C Cheat Sheet</span></h1>
+
+<pre><div class="code"><span class="GruvboxAqua">#include </span><span class="String">&lt;assert.h&gt;</span>
+<span class="GruvboxAqua">#include </span><span class="String">&lt;math.h&gt;</span>
+<span class="GruvboxAqua">#include </span><span class="String">&lt;stdint.h&gt;</span>
+<span class="GruvboxAqua">#include </span><span class="String">&lt;stdio.h&gt;</span>
+<span class="GruvboxAqua">#include </span><span class="String">&lt;string.h&gt;</span>
+<span class="GruvboxAqua">#include </span><span class="String">&lt;unistd.h&gt;</span>
+
+<span class="Comment">/*</span><span class="Comment"> Returns -1 on error (e.g. sending EOF via ^d)</span>
+<span class="Comment"> * Does not consume the '\n'</span>
+<span class="Comment"> * Using stdout/stderr counts as an error</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">int</span> fgetc(<span class="GruvboxYellow">FILE</span> *stream);
+
+<span class="Comment">/*</span><span class="Comment"> Never read &quot;size&quot; bytes</span>
+<span class="Comment"> * The most fgets will read is &quot;size-1&quot;</span>
+<span class="Comment"> * If successful, '\0' will be appeneded to the end</span>
+<span class="Comment"> * '\0' is never stored in &quot;s[size]&quot;</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">char</span> *fgets(<span class="GruvboxYellow">char</span> *s, <span class="GruvboxYellow">int</span> size, <span class="GruvboxYellow">FILE</span> *stream);
+
+<span class="Comment">/*</span><span class="Comment"> Possible overflow: fread() usually does read(fd, buf, size*nmemb)</span>
+<span class="Comment"> * Return value: Number of items (nmemb) read</span>
+<span class="Comment"> * Does NOT return -1 on error</span>
+<span class="Comment"> * Does NOT add a '\0'</span>
+<span class="Comment"> * Does NOT swallow '\n'</span>
+<span class="Comment"> * Will keep reading until `size*nmemb` bytes have been read</span>
+<span class="Comment"> * Will read() directly into buffer regardless of # of bytes read</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">size_t</span> fread(<span class="GruvboxYellow">void</span> *ptr, <span class="GruvboxYellow">size_t</span> size, <span class="GruvboxYellow">size_t</span> nmemb, <span class="GruvboxYellow">FILE</span> *stream);
+
+<span class="Comment">/*</span><span class="Comment"> From the man page:</span>
+<span class="Comment"> *     &quot;getc() is equivalent to fgetc() except that it may be</span>
+<span class="Comment"> *     implemented as a macro which evaluates stream more</span>
+<span class="Comment"> *     than once.&quot;</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">int</span> getc(<span class="GruvboxYellow">FILE</span> *stream);
+
+<span class="Comment">/*</span><span class="Comment"> The same as &quot;getc(stdin)&quot; </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">int</span> getchar(<span class="GruvboxYellow">void</span>);
+
+<span class="Comment">/*</span><span class="Comment"> This function is very good :)</span>
+<span class="Comment"> * Swallows the '\n'</span>
+<span class="Comment"> * Always adds a '\0' to the end</span>
+<span class="Comment"> * Only returns NULL if ^d is first character</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">char</span> *gets(<span class="GruvboxYellow">char</span> *s);
+
+<span class="Comment">/*</span><span class="Comment"> The best function for reading &lt;3</span>
+<span class="Comment"> * Nothing fancy</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">ssize_t</span> read(<span class="GruvboxYellow">int</span> fd, <span class="GruvboxYellow">void</span> *buf, <span class="GruvboxYellow">size_t</span> count);
+
+<span class="Comment">/*</span><span class="Comment"> Returns number of matches</span>
+<span class="Comment"> * Return -1 if EOF is first</span>
+<span class="Comment"> * Does NOT swallow '\n'</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">int</span> scanf(<span class="GruvboxOrange">const</span> <span class="GruvboxYellow">char</span> *format, ...);
+
+<span class="Comment">/*</span><span class="Comment"> Copy &quot;src&quot; to &quot;dest&quot;</span>
+<span class="Comment"> * Always copies null terminator</span>
+<span class="Comment"> * Returns &quot;dest&quot;</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">char</span> *strcpy(<span class="GruvboxYellow">char</span> *dest, <span class="GruvboxOrange">const</span> <span class="GruvboxYellow">char</span> *src);
+
+<span class="Comment">/*</span><span class="Comment"> Will never write to dest[n]</span>
+<span class="Comment"> * Copies &quot;MIN(strlen(src),n)&quot; bytes from src</span>
+<span class="Comment"> * After the copy, '\0' is used as padding up to &quot;n&quot; bytes</span>
+<span class="Comment"> * Returns &quot;dest&quot;</span>
+<span class="Comment"> </span><span class="Comment">*/</span>
+<span class="GruvboxYellow">char</span> *strncpy(<span class="GruvboxYellow">char</span> *dest, <span class="GruvboxOrange">const</span> <span class="GruvboxYellow">char</span> *src, <span class="GruvboxYellow">size_t</span> n);
+
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT8_MIN</span><span class="GruvboxAqua">   (-</span><span class="GruvboxPurple">1</span><span class="GruvboxAqua">-</span><span class="GruvboxPurple">0x7f</span><span class="GruvboxAqua">)                    </span><span class="Comment">/*</span><span class="Comment"> -128 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT16_MIN</span><span class="GruvboxAqua">  (-</span><span class="GruvboxPurple">1</span><span class="GruvboxAqua">-</span><span class="GruvboxPurple">0x7fff</span><span class="GruvboxAqua">)                  </span><span class="Comment">/*</span><span class="Comment"> -32768 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT32_MIN</span><span class="GruvboxAqua">  (-</span><span class="GruvboxPurple">1</span><span class="GruvboxAqua">-</span><span class="GruvboxPurple">0x7fffffff</span><span class="GruvboxAqua">)              </span><span class="Comment">/*</span><span class="Comment"> -2147483648 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT64_MIN</span><span class="GruvboxAqua">  (-</span><span class="GruvboxPurple">1</span><span class="GruvboxAqua">-</span><span class="GruvboxPurple">0x7fffffffffffffff</span><span class="GruvboxAqua">)      </span><span class="Comment">/*</span><span class="Comment"> -9223372036854775808 </span><span class="Comment">*/</span>
+
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT8_MAX</span><span class="GruvboxAqua">   (</span><span class="GruvboxPurple">0x7f</span><span class="GruvboxAqua">)                       </span><span class="Comment">/*</span><span class="Comment"> 127 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT16_MAX</span><span class="GruvboxAqua">  (</span><span class="GruvboxPurple">0x7fff</span><span class="GruvboxAqua">)                     </span><span class="Comment">/*</span><span class="Comment"> 32767 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT32_MAX</span><span class="GruvboxAqua">  (</span><span class="GruvboxPurple">0x7fffffff</span><span class="GruvboxAqua">)                 </span><span class="Comment">/*</span><span class="Comment"> 2147483647 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">INT64_MAX</span><span class="GruvboxAqua">  (</span><span class="GruvboxPurple">0x7fffffffffffffff</span><span class="GruvboxAqua">)         </span><span class="Comment">/*</span><span class="Comment"> 9223372036854775807 </span><span class="Comment">*/</span>
+
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">UINT8_MAX</span><span class="GruvboxAqua">  (</span><span class="GruvboxPurple">0xff</span><span class="GruvboxAqua">)                       </span><span class="Comment">/*</span><span class="Comment"> 255 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">UINT16_MAX</span><span class="GruvboxAqua"> (</span><span class="GruvboxPurple">0xffff</span><span class="GruvboxAqua">)                     </span><span class="Comment">/*</span><span class="Comment"> 65535 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">UINT32_MAX</span><span class="GruvboxAqua"> (</span><span class="GruvboxPurple">0xffffffffu</span><span class="GruvboxAqua">)                </span><span class="Comment">/*</span><span class="Comment"> 4294967295 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">UINT64_MAX</span><span class="GruvboxAqua"> (</span><span class="GruvboxPurple">0xffffffffffffffffu</span><span class="GruvboxAqua">)        </span><span class="Comment">/*</span><span class="Comment"> 18446744073709551615 </span><span class="Comment">*/</span>
+
+<span class="Comment">/*</span><span class="Comment"> Goodies from &lt;math.h&gt; </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_E</span><span class="GruvboxAqua">             </span><span class="GruvboxPurple">2.7182818284590452354</span><span class="GruvboxAqua">   </span><span class="Comment">/*</span><span class="Comment"> e </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_LOG2E</span><span class="GruvboxAqua">         </span><span class="GruvboxPurple">1.4426950408889634074</span><span class="GruvboxAqua">   </span><span class="Comment">/*</span><span class="Comment"> log_2 e </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_LOG10E</span><span class="GruvboxAqua">        </span><span class="GruvboxPurple">0.43429448190325182765</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> log_10 e </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_LN2</span><span class="GruvboxAqua">           </span><span class="GruvboxPurple">0.69314718055994530942</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> log_e 2 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_LN10</span><span class="GruvboxAqua">          </span><span class="GruvboxPurple">2.30258509299404568402</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> log_e 10 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_PI</span><span class="GruvboxAqua">            </span><span class="GruvboxPurple">3.14159265358979323846</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> pi </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_PI_2</span><span class="GruvboxAqua">          </span><span class="GruvboxPurple">1.57079632679489661923</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> pi/2 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_PI_4</span><span class="GruvboxAqua">          </span><span class="GruvboxPurple">0.78539816339744830962</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> pi/4 </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_1_PI</span><span class="GruvboxAqua">          </span><span class="GruvboxPurple">0.31830988618379067154</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> 1/pi </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_2_PI</span><span class="GruvboxAqua">          </span><span class="GruvboxPurple">0.63661977236758134308</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> 2/pi </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_2_SQRTPI</span><span class="GruvboxAqua">      </span><span class="GruvboxPurple">1.12837916709551257390</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> 2/sqrt(pi) </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_SQRT2</span><span class="GruvboxAqua">         </span><span class="GruvboxPurple">1.41421356237309504880</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> sqrt(2) </span><span class="Comment">*/</span>
+<span class="GruvboxAqua">#define </span><span class="GruvboxPurple">M_SQRT1_2</span><span class="GruvboxAqua">       </span><span class="GruvboxPurple">0.70710678118654752440</span><span class="GruvboxAqua">  </span><span class="Comment">/*</span><span class="Comment"> 1/sqrt(2) </span><span class="Comment">*/</span>
+
+<span class="Comment">/*</span><span class="Comment"> CLASS = 32bit </span><span class="Comment">*/</span>
+assert(<span class="GruvboxPurple">sizeof</span>(<span class="GruvboxYellow">long</span>) == <span class="GruvboxPurple">4</span>);
+
+<span class="Comment">/*</span><span class="Comment"> CLASS = 64bit </span><span class="Comment">*/</span>
+assert(<span class="GruvboxPurple">sizeof</span>(<span class="GruvboxYellow">long</span>) == <span class="GruvboxPurple">8</span>);
+
+<span class="Comment">/*</span><span class="Comment"> Always true </span><span class="Comment">*/</span>
+assert(<span class="GruvboxPurple">sizeof</span>(<span class="GruvboxYellow">long</span>) == <span class="GruvboxPurple">sizeof</span>(<span class="GruvboxYellow">void</span> *));
+
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">long</span>  <span class="GruvboxYellow">size_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">long</span>           <span class="GruvboxYellow">ssize_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">long</span>  <span class="GruvboxYellow">uintptr_t</span>;
+
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">signed</span> <span class="GruvboxYellow">char</span>    <span class="GruvboxYellow">int8_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">signed</span> <span class="GruvboxYellow">int</span>     <span class="GruvboxYellow">int32_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">signed</span> <span class="GruvboxYellow">short</span>   <span class="GruvboxYellow">int16_t</span>;
+
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">char</span>  <span class="GruvboxYellow">uint8_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">int</span>   <span class="GruvboxYellow">uint32_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">short</span> <span class="GruvboxYellow">uint16_t</span>;
+
+<span class="GruvboxAqua">#if __WORDSIZE == </span><span class="GruvboxPurple">64</span>
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">signed</span> <span class="GruvboxYellow">long</span> <span class="GruvboxYellow">int</span>   <span class="GruvboxYellow">int64_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">long</span> <span class="GruvboxYellow">int</span> <span class="GruvboxYellow">uint64_t</span>;
+<span class="GruvboxAqua">#else</span>
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">signed</span> <span class="GruvboxYellow">long</span> <span class="GruvboxYellow">long</span> <span class="GruvboxYellow">int</span>   <span class="GruvboxYellow">int64_t</span>;
+<span class="GruvboxOrange">typedef</span> <span class="GruvboxYellow">unsigned</span> <span class="GruvboxYellow">long</span> <span class="GruvboxYellow">long</span> <span class="GruvboxYellow">int</span> <span class="GruvboxYellow">uint64_t</span>;
+<span class="GruvboxAqua">#endif</span>
+</div></pre>
+</main></body>
+</html>
