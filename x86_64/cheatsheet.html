@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>~/c/</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body><main>
+<h1><span class="GruvboxAqua">x86_64 Cheat Sheet</span></h1>
+<h2>Floating Point Numbers</h2>
+<pre><div class="code">[<span class="GruvboxBlue">BITS</span> <span class="GruvboxPurple">32</span>]
+
+<span class="GruvboxBlue">section</span> <span class="GruvboxRed">.data</span>
+    <span class="GruvboxBlue">num1</span>: <span class="GruvboxBlue">dq</span> <span class="GruvboxPurple">1</span>.<span class="GruvboxPurple">11</span>   <span class="Comment">; define quadword (double precision)</span>
+    <span class="GruvboxBlue">num2</span>: <span class="GruvboxBlue">dq</span> <span class="GruvboxPurple">2</span>.<span class="GruvboxPurple">22</span>
+    <span class="GruvboxBlue">num3</span>: <span class="GruvboxBlue">dq</span> <span class="GruvboxPurple">3</span>.<span class="GruvboxPurple">33</span>
+    <span class="GruvboxBlue">num4</span>: <span class="GruvboxBlue">dq</span> <span class="GruvboxPurple">4</span>.<span class="GruvboxPurple">44</span>
+
+<span class="GruvboxBlue">section</span> <span class="GruvboxRed">.text</span>
+
+<span class="GruvboxBlue">global</span> <span class="GruvboxBlue">_start</span>
+<span class="GruvboxBlue">_start</span>:
+
+    <span class="Comment">; Floating point registers use a &quot;FPU register stack&quot; for storing</span>
+    <span class="Comment">; manipulating floating point values. Stack contains values st0</span>
+    <span class="Comment">; (or st(0)) to st7 (or st(7)).</span>
+
+    <span class="Comment">; fld -&gt; &quot;floating point load&quot;</span>
+    <span class="Comment">; fld will push a float onto the &quot;FPU register stack&quot;</span>
+
+    <span class="Comment">; &quot;fld&quot; MUST have a pointer</span>
+    <span class="Comment">; st0 &lt;- num1</span>
+    <span class="GruvboxBlue">fld</span> <span class="GruvboxBlue">qword</span> [<span class="GruvboxBlue">num1</span>] <span class="Comment">; or &quot;push num1&quot;</span>
+
+    <span class="Comment">; st1 &lt;- st0</span>
+    <span class="Comment">; st0 &lt;- num2</span>
+    <span class="GruvboxBlue">fld</span> <span class="GruvboxBlue">qword</span> [<span class="GruvboxBlue">num2</span>] <span class="Comment">; or &quot;push num2&quot;</span>
+
+    <span class="Comment">; st2 &lt;- st1</span>
+    <span class="Comment">; st1 &lt;- st0</span>
+    <span class="Comment">; st0 &lt;- num3</span>
+    <span class="GruvboxBlue">fld</span> <span class="GruvboxBlue">qword</span> [<span class="GruvboxBlue">num3</span>] <span class="Comment">; or &quot;push num3&quot;</span>
+
+    <span class="Comment">; st2 += st0</span>
+    <span class="GruvboxBlue">fadd</span> <span class="GruvboxBlue">st2</span>, <span class="GruvboxBlue">st0</span>
+
+    <span class="Comment">; st2 += st0</span>
+    <span class="Comment">; pop</span>
+    <span class="GruvboxBlue">faddp</span> <span class="GruvboxBlue">st2</span>, <span class="GruvboxBlue">st0</span>
+
+    <span class="Comment">; st2 -= st0</span>
+    <span class="GruvboxBlue">fsub</span> <span class="GruvboxBlue">st2</span>, <span class="GruvboxBlue">st0</span>
+
+    <span class="Comment">; st2 -= st0</span>
+    <span class="Comment">; pop</span>
+    <span class="GruvboxBlue">fsubp</span> <span class="GruvboxBlue">st2</span>, <span class="GruvboxBlue">st0</span>
+
+    <span class="Comment">; st4 &lt;- st0</span>
+    <span class="GruvboxBlue">fst</span> <span class="GruvboxBlue">st4</span>
+
+    <span class="Comment">; [num4] &lt;- st0</span>
+    <span class="GruvboxBlue">fst</span> <span class="GruvboxBlue">qword</span> [<span class="GruvboxBlue">num4</span>]
+
+    <span class="Comment">; st4 &lt;- st0</span>
+    <span class="Comment">; pop        /* st(n) &lt;- st(n+1) ; st(7) becomes st(0) */</span>
+    <span class="GruvboxBlue">fstp</span> <span class="GruvboxBlue">st4</span>
+
+    <span class="Comment">; [num4] &lt;- st0</span>
+    <span class="Comment">; pop</span>
+    <span class="GruvboxBlue">fstp</span> <span class="GruvboxBlue">qword</span> [<span class="GruvboxBlue">num4</span>]
+
+    <span class="Comment">; Push constants on FPU stack</span>
+    <span class="GruvboxBlue">fld1</span>    <span class="Comment">/* push(+1)        */</span>
+    <span class="GruvboxBlue">fldld2e</span> <span class="Comment">/* push(log_2(e))  */</span>
+    <span class="GruvboxBlue">fldl2t</span>  <span class="Comment">/* push(log_2(10)) */</span>
+    <span class="GruvboxBlue">fldlg2</span>  <span class="Comment">/* push(log_10(2)) */</span>
+    <span class="GruvboxBlue">flln2</span>   <span class="Comment">/* push(ln(2))     */</span>
+    <span class="GruvboxBlue">fldz</span>    <span class="Comment">/* push(+0)        */</span>
+</div></pre>
+
+<h2>Condional Statements</h2>
+<pre><div class="code">[<span class="GruvboxBlue">BITS</span> <span class="GruvboxPurple">32</span>]
+
+<span class="Comment">; Common eflags</span>
+<span class="Comment">; - CF: Carry Flag (for unsigned comparissons)</span>
+<span class="Comment">; - ZF: Zero Flag (result of operating is zero)</span>
+<span class="Comment">; - SF: Sign Flag (for signed comparissons)</span>
+<span class="Comment">; - TF: Trap Flag (set if step by step debugging)</span>
+<span class="Comment">; - OF: Overflow Flag (result can't be stored in register)</span>
+<span class="Comment">; - RF: Resume Flag (response to debug exceptions)</span>
+<span class="Comment">; - AC: Alignment Check (memory alignment checks)</span>
+
+<span class="GruvboxBlue">section</span> <span class="GruvboxRed">.text</span>
+
+<span class="GruvboxBlue">global</span> <span class="GruvboxBlue">_start</span>
+<span class="GruvboxBlue">_start</span>:
+
+    <span class="Comment">; if ((eax &amp; ebx) == 0)</span>
+    <span class="Comment">;   ZF = 1</span>
+    <span class="Comment">; else</span>
+    <span class="Comment">;   ZF = 0</span>
+    <span class="GruvboxBlue">test</span> <span class="GruvboxBlue">eax</span>, <span class="GruvboxBlue">ebx</span>
+
+    <span class="Comment">; Set the following flags: OF, SF, ZF, and CF</span>
+    <span class="Comment">; Does a subtraction</span>
+    <span class="GruvboxBlue">cmp</span> <span class="GruvboxBlue">eax</span>, <span class="GruvboxBlue">ebx</span>
+
+    <span class="GruvboxBlue">ja</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if above (CF=0 and ZF=0)</span>
+
+    <span class="GruvboxBlue">jae</span> &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if above or equal (CF=0)</span>
+
+    <span class="GruvboxBlue">jb</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if below (CF=1 or ZF=1)</span>
+
+    <span class="GruvboxBlue">jc</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if carry (CF=1)</span>
+
+    <span class="GruvboxBlue">je</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if equal (ZF=1)</span>
+
+    <span class="GruvboxBlue">jg</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if greater (ZF=0 and SF=OF)</span>
+
+    <span class="GruvboxBlue">jge</span> &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if greater or equal (SF=OF)</span>
+
+    <span class="GruvboxBlue">jl</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if less (SF != OF)</span>
+
+    <span class="GruvboxBlue">jle</span> &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if less or equal (ZF=1 or SF != OF)</span>
+
+    <span class="GruvboxBlue">js</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if sign (SF=1)</span>
+
+    <span class="GruvboxBlue">jz</span>  &amp;<span class="GruvboxBlue">func</span> <span class="Comment">; if zero (ZF=1)</span>
+</div></pre>
+
+<h2>Miscellaneous</h2>
+<pre><div class="code">[<span class="GruvboxBlue">BITS</span> <span class="GruvboxPurple">32</span>]
+
+<span class="GruvboxBlue">section</span> <span class="GruvboxRed">.text</span>
+
+<span class="GruvboxBlue">global</span> <span class="GruvboxBlue">_start</span>
+<span class="GruvboxBlue">_start</span>:
+
+    <span class="Comment">; Move with Zero-Extend</span>
+    <span class="GruvboxBlue">movzx</span> <span class="GruvboxBlue">eax</span>, <span class="GruvboxBlue">bl</span>
+
+    <span class="Comment">; Move with Sign-Extend</span>
+    <span class="GruvboxBlue">movsx</span> <span class="GruvboxBlue">eax</span>, <span class="GruvboxBlue">bl</span>
+</div></pre>
+
+
+</main></body>
+</html>
