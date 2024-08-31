@@ -14,6 +14,7 @@ import DashboardScreen from './screens/DashboardScreen';
 import MicrosoftStandardsScreen from './screens/MicrosoftStandardsScreen';
 import RfcListScreen from './screens/RfcListScreen';
 import WebStandardsScreen from './screens/WebStandardsScreen';
+import CWEListScreen from './screens/CWEListScreen';
 
 import { SUN_ICON } from './utils/Icons.jsx';
 
@@ -62,6 +63,12 @@ function App() {
                     <Route
                         path="/web-standards"
                         element={<WebStandardsScreen />}
+                        exact
+                    />
+
+                    <Route
+                        path="/cwe-list"
+                        element={<CWEListScreen />}
                         exact
                     />
 
