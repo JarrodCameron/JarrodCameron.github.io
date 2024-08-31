@@ -30,6 +30,7 @@ const links = [
     ["Microsoft Standards", "/microsoft-standards",              false],
     ["IETF RFC List",       "/rfc-list",                         false],
     ["Web Standards",       "/web-standards",                    false],
+    ["CWE List",            "/cwe-list",                         false],
 ];
 
 function DashboardScreen() {
