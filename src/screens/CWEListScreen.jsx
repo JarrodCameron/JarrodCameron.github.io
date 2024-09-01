@@ -87,7 +87,6 @@ function CWEListScreen() {
 
                 <ListGroup>
                     {cweList.map((entry, index) => (
-                        // TODO Search title, not Name
                         isRegexMatch(query, entry['Name']) && <ListGroup.Item
                             key={index} action
                         >
