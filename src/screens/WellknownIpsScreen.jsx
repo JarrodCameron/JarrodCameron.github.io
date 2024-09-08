@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ipaddr from 'ipaddr.js';
 
-// TODO Delete unneeded
 import Badge from 'react-bootstrap/Badge';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -29,13 +28,15 @@ import Row from 'react-bootstrap/Row';
  *   - [ ] Oracle
  *   - [ ] GCP
  *   - [ ] NSA
- *   - [ ] GitHub
  */
+
+const DEFAULT_IP = '103.22.200.24';
 
 const CidrIndexes = [
     'https://www.cloudflare.com/ips-v4/#',
     'https://www.cloudflare.com/ips-v6/#',
     'https://ip-ranges.amazonaws.com/ip-ranges.json',
+    'https://api.github.com/meta',
 ];
 
 const isInCidr = (addr, cidr) => {
@@ -53,7 +54,7 @@ const getCidrs = (knownCidrsList, ipAddrStr) => {
 function WellknownIpsScreen() {
 
     const [knownCidrsList, setKnownCidrsList] = useState([]);
-    const [query, setQuery] = useState(undefined);
+    const [query, setQuery] = useState(DEFAULT_IP);
     const [isValid, setIsValid] = useState(true);
 
     useEffect(() => {
@@ -105,7 +106,7 @@ function WellknownIpsScreen() {
 
                 <ListGroup>
 
-                    {query && <ListGroup.Item
+                    <ListGroup.Item
                         action
                         className="d-flex justify-content-between"
                     >
@@ -120,7 +121,7 @@ function WellknownIpsScreen() {
                                 >{entry['name']}</Badge>
                             ))}
                         </div>
-                    </ListGroup.Item>}
+                    </ListGroup.Item>
 
                 </ListGroup>
 
