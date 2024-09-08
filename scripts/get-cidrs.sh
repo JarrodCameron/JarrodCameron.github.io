@@ -25,3 +25,13 @@
 
 
 
+# https://api.github.com/meta
+#for key in 'actions' 'actions_macos' 'api' 'copilot' 'dependabot' 'git' \
+#        'github_enterprise_importer' 'hooks' 'importer' 'packages' 'pages' 'web'
+#do
+#        jq --arg key "$key" '.[$key][] | {
+#                "cidrStr": .,
+#                "name": "GitHub",
+#                "service": $key,
+#        }' meta.json
+#done
