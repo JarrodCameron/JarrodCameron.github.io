@@ -15,6 +15,7 @@ import MicrosoftStandardsScreen from './screens/MicrosoftStandardsScreen';
 import RfcListScreen from './screens/RfcListScreen';
 import WebStandardsScreen from './screens/WebStandardsScreen';
 import CWEListScreen from './screens/CWEListScreen';
+import WellknownIpsScreen from './screens/WellknownIpsScreen';
 
 import { SUN_ICON } from './utils/Icons.jsx';
 
@@ -69,6 +70,12 @@ function App() {
                     <Route
                         path="/cwe-list"
                         element={<CWEListScreen />}
+                        exact
+                    />
+
+                    <Route
+                        path="/wellknown-ips"
+                        element={<WellknownIpsScreen />}
                         exact
                     />
 

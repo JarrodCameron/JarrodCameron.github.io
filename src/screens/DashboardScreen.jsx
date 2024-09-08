@@ -31,6 +31,7 @@ const links = [
     ["IETF RFC List",       "/rfc-list",                         false],
     ["Web Standards",       "/web-standards",                    false],
     ["CWE List",            "/cwe-list",                         false],
+    ["Wellknown IPs",       "wellknown-ips",                     false],
 ];
 
 function DashboardScreen() {
