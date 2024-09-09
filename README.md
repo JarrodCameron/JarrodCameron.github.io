@@ -2,6 +2,7 @@
 
 ### To Do List
 
+- [ ] `package.json` needs a cmd to download all `JSON` files.
 - [ ] Wellknown IP Checker
   - [ ] Given an IP, check to see if it's in any well known IP ranges
 - [ ] `Last Updated` date on pages needing regular updates

@@ -15,8 +15,11 @@ URL='https://raw.githubusercontent.com/CWE-CAPEC/REST-API-wg/main/json_repo/W/we
 curl "$URL" | jq '[
 		.[] | {
 			ID: .ID | tonumber,
+			Title: ("CWE-" + .ID + ": " + .Name),
 			Name: .Name,
-			Status: .Status
+			Description: .Description,
+			ExtendedDescription: .ExtendedDescription,
+			Status: .Status,
 		}
 	] | sort_by(.ID)'
 

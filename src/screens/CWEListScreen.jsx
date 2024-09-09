@@ -11,33 +11,25 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Row from 'react-bootstrap/Row';
 
-const isRegexMatch = (query, string) => {
-    const regex = new RegExp(query, "i");
-    return regex.test(string);
-};
-
-const handleOnChange = (e, setQuery, setIsValid) => {
-    const newQuery = e.target.value;
-
-    try {
-        // Will throw exception if invalid regex
-        RegExp(newQuery, "i");
-
-        setQuery(newQuery);
-        setIsValid(true);
-    } catch {
-        setIsValid(false);
-    }
+const isMatch = (query, string) => {
+    const lowerCaseQuery = query.toLowerCase();
+    return string.includes(lowerCaseQuery);
 };
 
 const getListItem = cwe => {
 
     return <>
         <div className="d-inline">
-            {`CWE-${cwe['ID']}: ${cwe['Name']}`}
+            {cwe['Title']}
         </div>
         <div className="d-inline text-secondary ps-2">
             {`[${cwe['Status']}]`}
+        </div>
+        <div className="text-secondary">
+            {cwe['Description']}
+        </div>
+        <div className="text-secondary">
+            {cwe['ExtendedDescription']}
         </div>
         <Link
             target="_blank"
@@ -52,11 +44,19 @@ function CWEListScreen() {
 
     const [cweList, setCweList] = useState([]);
     const [query, setQuery] = useState('');
-    const [isValid, setIsValid] = useState(true);
 
     useEffect(() => {
         axios.get("/static/cwe-list.json").then(response => {
-            setCweList(response.data);
+            const tempCweList = response.data.map(cwe => {
+                const searchableArr = [
+                    cwe['Title'].toLowerCase(),
+                    cwe['Description'].toLowerCase(),
+                    cwe['ExtendedDescription']?.toLowerCase(),
+                ];
+                cwe['Searchable'] = searchableArr.join("\n");
+                return cwe;
+            });
+            setCweList(tempCweList);
         });
     }, []);
 
@@ -73,21 +73,15 @@ function CWEListScreen() {
                             <Form.Control
                                 placeholder="Buffer Overflow, SQL Injection, BAC, ..."
                                 aria-label="Search"
-                                onChange={
-                                    e => handleOnChange(e, setQuery, setIsValid)
-                                }
-                                isInvalid={!isValid}
+                                onChange={e => setQuery(e.target.value)}
                             />
-                            <Form.Control.Feedback type="invalid">
-                                Invalid regular expression!
-                            </Form.Control.Feedback>
                         </InputGroup>
                     </Col>
                 </Row>
 
                 <ListGroup>
                     {cweList.map((entry, index) => (
-                        isRegexMatch(query, entry['Name']) && <ListGroup.Item
+                        isMatch(query, entry['Searchable']) && <ListGroup.Item
                             key={index} action
                         >
                             {getListItem(entry)}
