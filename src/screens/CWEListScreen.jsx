@@ -11,12 +11,14 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Row from 'react-bootstrap/Row';
 
+import { TEXT_ICON } from '../utils/Icons.jsx';
+
 const isMatch = (query, string) => {
     const lowerCaseQuery = query.toLowerCase();
     return string.includes(lowerCaseQuery);
 };
 
-const getListItem = cwe => {
+const CweListItem = ({cwe, verbose}) => {
 
     return <>
         <div className="d-inline">
@@ -25,12 +27,12 @@ const getListItem = cwe => {
         <div className="d-inline text-secondary ps-2">
             {`[${cwe['Status']}]`}
         </div>
-        <div className="text-secondary">
+        {verbose && <div className="text-secondary">
             {cwe['Description']}
-        </div>
-        <div className="text-secondary">
+        </div>}
+        {verbose && <div className="text-secondary">
             {cwe['ExtendedDescription']}
-        </div>
+        </div>}
         <Link
             target="_blank"
             rel="noopener noreferrer"
@@ -44,6 +46,7 @@ function CWEListScreen() {
 
     const [cweList, setCweList] = useState([]);
     const [query, setQuery] = useState('');
+    const [verbose, setVerbose] = useState(false);
 
     useEffect(() => {
         axios.get("/static/cwe-list.json").then(response => {
@@ -75,6 +78,12 @@ function CWEListScreen() {
                                 aria-label="Search"
                                 onChange={e => setQuery(e.target.value)}
                             />
+                            <Button
+                                variant={verbose ? "success" : "outline-success"}
+                                onClick={e => setVerbose(verbose => !verbose)}
+                            >
+                                {TEXT_ICON}
+                            </Button>
                         </InputGroup>
                     </Col>
                 </Row>
@@ -84,7 +93,7 @@ function CWEListScreen() {
                         isMatch(query, entry['Searchable']) && <ListGroup.Item
                             key={index} action
                         >
-                            {getListItem(entry)}
+                            <CweListItem cwe={entry} verbose={verbose}/>
                         </ListGroup.Item>
                     ))}
 
