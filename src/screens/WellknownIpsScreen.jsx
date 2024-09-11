@@ -11,23 +11,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 
-/* TODO
- * - [ ] Handle CIDRs as input
- * - [ ] Handle multiple IP addresses input
- * - [ ] Loading screen while downloading cidrs.json
- * - [ ] Badges:
- *   - [ ] Onhover: Show the CIDR
- *   - [ ] OnClick: Modal -> more info about CIDR
- * - [ ] Clicking an IP address should copy it to the clip board
- * - [ ] Get CIDRs for:
- *   - [ ] Static ranges (localhost, class A/B/C, etc)
- *   - [ ] Azure
- *   - [ ] Oracle
- *   - [ ] GCP
- *   - [ ] NSA
- *   - [ ] BitBucket
- */
-
 const DEFAULT_IP = '103.22.200.24';
 
 const CidrIndexes = [

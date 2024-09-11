@@ -7,9 +7,22 @@
   - [ ] Download new files
 - [ ] `Last Updated` date on pages needing regular updates
 - [ ] CWEList page:
-  - [x] Search on title, not the Name
   - [ ] Let user filter the status
   - [ ] Single click copy of functions
+  - [ ] Handle CIDRs as input
+  - [ ] Handle multiple IP addresses input
+  - [ ] Loading screen while downloading cidrs.json
+  - [ ] Badges:
+    - [ ] Onhover: Show the CIDR
+    - [ ] OnClick: Modal -> more info about CIDR
+  - [ ] Clicking an IP address should copy it to the clip board
+  - [ ] Get CIDRs for:
+    - [ ] Static ranges (localhost, class A/B/C, etc)
+    - [ ] Azure
+    - [ ] Oracle
+    - [ ] GCP
+    - [ ] NSA
+    - [ ] BitBucket
 - [ ] Screenshot page:
   - [ ] Copy images
   - [ ] Draw rectangles
@@ -22,12 +35,3 @@
   - [ ] `Web Standards`.
   - [ ] `CWE List`.
 - [ ] Dashboard buttons `onhover` should change color.
-
-### Done List
-
-- [x] `jarrodcameron.github.io` needs a favicon
-- [x] Wellknown IP Checker. Given an IP, check to see if it's in any well known
-   IP ranges.
-- [x] Link to GitHub
-- [x] Move from `BrowserRouter` to `HashRouter`.
-- [x] Finish off `CWE List` page.
