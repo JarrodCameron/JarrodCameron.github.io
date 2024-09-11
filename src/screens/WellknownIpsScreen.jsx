@@ -12,9 +12,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 
 /* TODO
- * - [ ] Footer:
- *   - [x] List of places we got the IPs from
- *   - [ ] Links to the sources
  * - [ ] Handle CIDRs as input
  * - [ ] Handle multiple IP addresses input
  * - [ ] Loading screen while downloading cidrs.json
@@ -28,6 +25,7 @@ import Row from 'react-bootstrap/Row';
  *   - [ ] Oracle
  *   - [ ] GCP
  *   - [ ] NSA
+ *   - [ ] BitBucket
  */
 
 const DEFAULT_IP = '103.22.200.24';

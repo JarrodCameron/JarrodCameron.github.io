@@ -2,13 +2,12 @@
 
 ### To Do List
 
-- [ ] Cleanup README.md
-- [ ] `package.json` needs a cmd to download all `JSON` files.
-- [ ] Wellknown IP Checker
-  - [ ] Given an IP, check to see if it's in any well known IP ranges
+- [ ] Regular static file updates:
+  - [ ] `package.json` needs a cmd to download all `JSON` files.
+  - [ ] Download new files
 - [ ] `Last Updated` date on pages needing regular updates
 - [ ] CWEList page:
-  - [ ] Search on title, not the Name
+  - [x] Search on title, not the Name
   - [ ] Let user filter the status
   - [ ] Single click copy of functions
 - [ ] Screenshot page:
@@ -17,7 +16,6 @@
   - [ ] Crop images
   - [ ] Blur images
   - [ ] Paste images
-- [ ] `jarrodcameron.github.io` needs a favicon
 - [ ] Search term stored in query param:
   - [ ] `Microsoft Standards`.
   - [ ] `IETF RFC List`.
@@ -27,6 +25,9 @@
 
 ### Done List
 
+- [x] `jarrodcameron.github.io` needs a favicon
+- [x] Wellknown IP Checker. Given an IP, check to see if it's in any well known
+   IP ranges.
 - [x] Link to GitHub
 - [x] Move from `BrowserRouter` to `HashRouter`.
 - [x] Finish off `CWE List` page.
