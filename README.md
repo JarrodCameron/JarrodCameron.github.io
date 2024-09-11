@@ -2,6 +2,7 @@
 
 ### To Do List
 
+- [ ] Cleanup README.md
 - [ ] `package.json` needs a cmd to download all `JSON` files.
 - [ ] Wellknown IP Checker
   - [ ] Given an IP, check to see if it's in any well known IP ranges
@@ -26,5 +27,6 @@
 
 ### Done List
 
+- [x] Link to GitHub
 - [x] Move from `BrowserRouter` to `HashRouter`.
 - [x] Finish off `CWE List` page.

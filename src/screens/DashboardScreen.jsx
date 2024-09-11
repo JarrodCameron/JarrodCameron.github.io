@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+
+import { GITHUB_ICON } from '../utils/Icons.jsx';
 
 const DashboardCard = ({text, to, newTab}) => {
 
@@ -55,6 +58,16 @@ function DashboardScreen() {
                 </Row>
 
             </Container>
+
+            <Button
+                variant="outline-secondary"
+                className="position-absolute end-0 bottom-0 m-3"
+                href="https://github.com/JarrodCameron/JarrodCameron.github.io"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                { GITHUB_ICON }
+            </Button>
         </>
     )
 }
