@@ -34254,6 +34254,22 @@
     "url": "https://ip-ranges.amazonaws.com/ip-ranges.json"
   },
   {
+    "region": "us-east-1",
+    "service": "AMAZON",
+    "network_border_group": "us-east-1",
+    "cidrStr": "98.82.158.0/23",
+    "name": "AWS",
+    "url": "https://ip-ranges.amazonaws.com/ip-ranges.json"
+  },
+  {
+    "region": "us-east-1",
+    "service": "AMAZON",
+    "network_border_group": "us-east-1",
+    "cidrStr": "98.82.160.0/23",
+    "name": "AWS",
+    "url": "https://ip-ranges.amazonaws.com/ip-ranges.json"
+  },
+  {
     "region": "us-east-2",
     "service": "AMAZON",
     "network_border_group": "us-east-2",
@@ -63577,7 +63593,7 @@
     "service": "actions"
   },
   {
-    "cidrStr": "20.20.76.48/31",
+    "cidrStr": "20.20.76.48/29",
     "name": "GitHub",
     "service": "actions"
   },
@@ -63588,6 +63604,11 @@
   },
   {
     "cidrStr": "20.20.131.0/24",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "20.20.132.0/23",
     "name": "GitHub",
     "service": "actions"
   },
@@ -66308,6 +66329,16 @@
   },
   {
     "cidrStr": "20.153.5.0/24",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "20.153.12.0/24",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "20.153.13.0/24",
     "name": "GitHub",
     "service": "actions"
   },
@@ -71632,27 +71663,22 @@
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.151.0/27",
+    "cidrStr": "40.120.151.0/26",
     "name": "GitHub",
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.151.32/28",
+    "cidrStr": "40.120.151.64/28",
     "name": "GitHub",
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.151.48/29",
+    "cidrStr": "40.120.151.80/29",
     "name": "GitHub",
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.151.56/30",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "40.120.151.60/31",
+    "cidrStr": "40.120.151.88/31",
     "name": "GitHub",
     "service": "actions"
   },
@@ -71667,7 +71693,7 @@
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.154.64/31",
+    "cidrStr": "40.120.154.64/30",
     "name": "GitHub",
     "service": "actions"
   },
@@ -71852,22 +71878,7 @@
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.158.128/27",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "40.120.158.160/28",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "40.120.158.176/30",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "40.120.158.188/30",
+    "cidrStr": "40.120.158.128/26",
     "name": "GitHub",
     "service": "actions"
   },
@@ -71893,6 +71904,11 @@
   },
   {
     "cidrStr": "40.120.158.254/31",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "40.120.159.0/29",
     "name": "GitHub",
     "service": "actions"
   },
@@ -72177,12 +72193,17 @@
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.166.232/30",
+    "cidrStr": "40.120.166.232/29",
     "name": "GitHub",
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.166.236/31",
+    "cidrStr": "40.120.166.240/29",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "40.120.166.248/31",
     "name": "GitHub",
     "service": "actions"
   },
@@ -72197,7 +72218,12 @@
     "service": "actions"
   },
   {
-    "cidrStr": "40.120.188.80/30",
+    "cidrStr": "40.120.188.80/29",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "40.120.188.88/30",
     "name": "GitHub",
     "service": "actions"
   },
@@ -73503,6 +73529,11 @@
   },
   {
     "cidrStr": "48.211.128.0/17",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "48.214.0.0/17",
     "name": "GitHub",
     "service": "actions"
   },
@@ -77372,6 +77403,16 @@
     "service": "actions"
   },
   {
+    "cidrStr": "57.150.178.0/23",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "57.150.182.0/23",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
     "cidrStr": "57.151.0.0/17",
     "name": "GitHub",
     "service": "actions"
@@ -81012,7 +81053,17 @@
     "service": "actions"
   },
   {
-    "cidrStr": "2603:1030:9:584::/64",
+    "cidrStr": "2603:1030:9:584::/62",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "2603:1030:9:588::/63",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "2603:1030:9:58a::/64",
     "name": "GitHub",
     "service": "actions"
   },
@@ -82182,27 +82233,7 @@
     "service": "actions"
   },
   {
-    "cidrStr": "2603:1030:401:720::/60",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "2603:1030:401:730::/63",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "2603:1030:401:732::/64",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "2603:1030:401:737::/64",
-    "name": "GitHub",
-    "service": "actions"
-  },
-  {
-    "cidrStr": "2603:1030:401:738::/61",
+    "cidrStr": "2603:1030:401:720::/59",
     "name": "GitHub",
     "service": "actions"
   },
@@ -82227,7 +82258,12 @@
     "service": "actions"
   },
   {
-    "cidrStr": "2603:1030:401:758::/64",
+    "cidrStr": "2603:1030:401:758::/62",
+    "name": "GitHub",
+    "service": "actions"
+  },
+  {
+    "cidrStr": "2603:1030:401:75c::/64",
     "name": "GitHub",
     "service": "actions"
   },

@@ -1,5 +1,9 @@
 [
   {
+    "name": "Compression",
+    "href": "https://compression.spec.whatwg.org/"
+  },
+  {
     "name": "Console",
     "href": "https://console.spec.whatwg.org/"
   },

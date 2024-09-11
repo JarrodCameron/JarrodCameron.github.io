@@ -2440,6 +2440,10 @@
     "href": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/MS-WINPROTLP/toc.json/../../ms-rdpesp/04ae8f6b-a2fe-4989-9314-09bff11fa086"
   },
   {
+    "title": "[MS-RDPETXT]: Remote Desktop Protocol: Text Input Virtual Channel Extension",
+    "href": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/MS-WINPROTLP/toc.json/../../ms-rdpetxt/cf2a87c7-bae1-4eb9-8a9a-63427e6d03f8"
+  },
+  {
     "title": "[MS-RDPET]: Remote Desktop Protocol: Telemetry Virtual Channel Extension",
     "href": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/MS-WINPROTLP/toc.json/../../ms-rdpet/f2fd580b-75bf-42aa-9952-ae8d9ac8f658"
   },
@@ -3098,6 +3102,10 @@
   {
     "title": "[MS-UPWCFWS]: User Profile Property Service Application Web Service Protocol",
     "href": "https://learn.microsoft.com/en-us/openspecs/sharepoint_protocols/MS-SPPROTLP/toc.json/../../ms-upwcfws/cb7f2273-f646-45b4-a7a2-9734d5b3328f"
+  },
+  {
+    "title": "[MS-USBEPD]: USB Protocol: Platform Detection Extensions",
+    "href": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/MS-WINPROTLP/toc.json/../../ms-usbepd/81c32dd4-d216-4022-a3fc-6940d859177f"
   },
   {
     "title": "[MS-USPSWS]: User Profile Service Web Service Protocol",

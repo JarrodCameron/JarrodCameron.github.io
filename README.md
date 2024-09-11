@@ -2,9 +2,6 @@
 
 ### To Do List
 
-- [ ] Regular static file updates:
-  - [ ] `package.json` needs a cmd to download all `JSON` files.
-  - [ ] Download new files
 - [ ] `Last Updated` date on pages needing regular updates
 - [ ] CWEList page:
   - [ ] Let user filter the status

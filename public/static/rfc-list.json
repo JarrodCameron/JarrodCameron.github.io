@@ -36932,6 +36932,10 @@
     "name": "[RFC9422] The LIMITS SMTP Service Extension"
   },
   {
+    "id": 9423,
+    "name": "[RFC9423] Constrained RESTful Environments (CoRE) Target Attributes Registry"
+  },
+  {
     "id": 9424,
     "name": "[RFC9424] Indicators of Compromise (IoCs) and Their Role in Attack Defence"
   },
@@ -36950,6 +36954,10 @@
   {
     "id": 9428,
     "name": "[RFC9428] Transmission of IPv6 Packets over Near Field Communication"
+  },
+  {
+    "id": 9429,
+    "name": "[RFC9429] JavaScript Session Establishment Protocol (JSEP)"
   },
   {
     "id": 9430,
@@ -37228,6 +37236,10 @@
     "name": "[RFC9498] The GNU Name System"
   },
   {
+    "id": 9499,
+    "name": "[RFC9499] DNS Terminology"
+  },
+  {
     "id": 9500,
     "name": "[RFC9500] Standard Public Key Cryptography (PKC) Test Keys"
   },
@@ -37254,6 +37266,18 @@
   {
     "id": 9506,
     "name": "[RFC9506] Explicit Host-to-Network Flow Measurements Techniques"
+  },
+  {
+    "id": 9507,
+    "name": "[RFC9507] Information-Centric Networking (ICN) Traceroute Protocol Specification"
+  },
+  {
+    "id": 9508,
+    "name": "[RFC9508] Information-Centric Networking (ICN) Ping Protocol Specification"
+  },
+  {
+    "id": 9509,
+    "name": "[RFC9509] X.509 Certificate Extended Key Usage (EKU) for 5G Network Functions"
   },
   {
     "id": 9510,
@@ -37328,8 +37352,20 @@
     "name": "[RFC9527] DHCPv6 Options for the Homenet Naming Authority"
   },
   {
+    "id": 9528,
+    "name": "[RFC9528] Ephemeral Diffie-Hellman Over COSE (EDHOC)"
+  },
+  {
+    "id": 9529,
+    "name": "[RFC9529] Traces of Ephemeral Diffie-Hellman Over COSE (EDHOC)"
+  },
+  {
     "id": 9530,
     "name": "[RFC9530] Digest Fields"
+  },
+  {
+    "id": 9531,
+    "name": "[RFC9531] Path Steering in Content-Centric Networking (CCNx) and Named Data Networking (NDN)"
   },
   {
     "id": 9532,
@@ -37348,6 +37384,14 @@
     "name": "[RFC9535] JSONPath: Query Expressions for JSON"
   },
   {
+    "id": 9536,
+    "name": "[RFC9536] Registration Data Access Protocol (RDAP) Reverse Search"
+  },
+  {
+    "id": 9537,
+    "name": "[RFC9537] Redacted Fields in the Registration Data Access Protocol (RDAP) Response"
+  },
+  {
     "id": 9538,
     "name": "[RFC9538] Content Delivery Network Interconnection (CDNI) Delegation Using the Automated Certificate Management Environment"
   },
@@ -37358,6 +37402,22 @@
   {
     "id": 9540,
     "name": "[RFC9540] Discovery of Oblivious Services via Service Binding Records"
+  },
+  {
+    "id": 9541,
+    "name": "[RFC9541] Flush Mechanism for Customer MAC Addresses Based on Service Instance Identifier (I-SID) in Provider Backbone Bridging EVPN (PBB-EVPN)"
+  },
+  {
+    "id": 9542,
+    "name": "[RFC9542] IANA Considerations and IETF Protocol and Documentation Usage for IEEE 802 Parameters"
+  },
+  {
+    "id": 9543,
+    "name": "[RFC9543] A Framework for Network Slices in Networks Built from IETF Technologies"
+  },
+  {
+    "id": 9544,
+    "name": "[RFC9544] Precision Availability Metrics (PAMs) for Services Governed by Service Level Objectives (SLOs)"
   },
   {
     "id": 9545,
@@ -37372,7 +37432,299 @@
     "name": "[RFC9547] Report from the IAB Workshop on Environmental Impact of Internet Applications and Systems, 2022"
   },
   {
+    "id": 9548,
+    "name": "[RFC9548] Generating Transport Key Containers (PFX) Using the GOST Algorithms"
+  },
+  {
+    "id": 9549,
+    "name": "[RFC9549] Internationalization Updates to RFC 5280"
+  },
+  {
+    "id": 9550,
+    "name": "[RFC9550] Deterministic Networking (DetNet): Packet Ordering Function"
+  },
+  {
+    "id": 9551,
+    "name": "[RFC9551] Framework of Operations, Administration, and Maintenance (OAM) for Deterministic Networking (DetNet)"
+  },
+  {
     "id": 9552,
     "name": "[RFC9552] Distribution of Link-State and Traffic Engineering Information Using BGP"
+  },
+  {
+    "id": 9553,
+    "name": "[RFC9553] JSContact: A JSON Representation of Contact Data"
+  },
+  {
+    "id": 9554,
+    "name": "[RFC9554] vCard Format Extensions for JSContact"
+  },
+  {
+    "id": 9555,
+    "name": "[RFC9555] JSContact: Converting from and to vCard"
+  },
+  {
+    "id": 9556,
+    "name": "[RFC9556] Internet of Things (IoT) Edge Challenges and Functions"
+  },
+  {
+    "id": 9557,
+    "name": "[RFC9557] Date and Time on the Internet: Timestamps with Additional Information"
+  },
+  {
+    "id": 9558,
+    "name": "[RFC9558] Use of GOST 2012 Signature Algorithms in DNSKEY and RRSIG Resource Records for DNSSEC"
+  },
+  {
+    "id": 9560,
+    "name": "[RFC9560] Federated Authentication for the Registration Data Access Protocol (RDAP) Using OpenID Connect"
+  },
+  {
+    "id": 9561,
+    "name": "[RFC9561] Using the Parallel NFS (pNFS) SCSI Layout to Access Non-Volatile Memory Express (NVMe) Storage Devices"
+  },
+  {
+    "id": 9562,
+    "name": "[RFC9562] Universally Unique IDentifiers (UUIDs)"
+  },
+  {
+    "id": 9564,
+    "name": "[RFC9564] Faster Than Light Speed Protocol (FLIP)"
+  },
+  {
+    "id": 9565,
+    "name": "[RFC9565] An Update to the tcpControlBits IP Flow Information Export (IPFIX) Information Element"
+  },
+  {
+    "id": 9566,
+    "name": "[RFC9566] Deterministic Networking (DetNet) Packet Replication, Elimination, and Ordering Functions (PREOF) via MPLS over UDP/IP"
+  },
+  {
+    "id": 9567,
+    "name": "[RFC9567] DNS Error Reporting"
+  },
+  {
+    "id": 9568,
+    "name": "[RFC9568] Virtual Router Redundancy Protocol (VRRP) Version 3 for IPv4 and IPv6"
+  },
+  {
+    "id": 9569,
+    "name": "[RFC9569] The Application-Layer Traffic Optimization (ALTO) Transport Information Publication Service (TIPS)"
+  },
+  {
+    "id": 9570,
+    "name": "[RFC9570] Deprecating the Use of Router Alert in LSP Ping"
+  },
+  {
+    "id": 9571,
+    "name": "[RFC9571] Extension of RFC 6374-Based Performance Measurement Using Synonymous Flow Labels"
+  },
+  {
+    "id": 9572,
+    "name": "[RFC9572] Updates to EVPN Broadcast, Unknown Unicast, or Multicast (BUM) Procedures"
+  },
+  {
+    "id": 9573,
+    "name": "[RFC9573] MVPN/EVPN Tunnel Aggregation with Common Labels"
+  },
+  {
+    "id": 9574,
+    "name": "[RFC9574] Optimized Ingress Replication Solution for Ethernet VPNs (EVPNs)"
+  },
+  {
+    "id": 9575,
+    "name": "[RFC9575] DRIP Entity Tag (DET) Authentication Formats and Protocols for Broadcast Remote Identification (RID)"
+  },
+  {
+    "id": 9576,
+    "name": "[RFC9576] The Privacy Pass Architecture"
+  },
+  {
+    "id": 9577,
+    "name": "[RFC9577] The Privacy Pass HTTP Authentication Scheme"
+  },
+  {
+    "id": 9578,
+    "name": "[RFC9578] Privacy Pass Issuance Protocols"
+  },
+  {
+    "id": 9579,
+    "name": "[RFC9579] Use of Password-Based Message Authentication Code 1 (PBMAC1) in PKCS #12 Syntax"
+  },
+  {
+    "id": 9580,
+    "name": "[RFC9580] OpenPGP"
+  },
+  {
+    "id": 9581,
+    "name": "[RFC9581] Concise Binary Object Representation (CBOR) Tags for Time, Duration, and Period"
+  },
+  {
+    "id": 9582,
+    "name": "[RFC9582] A Profile for Route Origin Authorizations (ROAs)"
+  },
+  {
+    "id": 9583,
+    "name": "[RFC9583] Application Scenarios for the Quantum Internet"
+  },
+  {
+    "id": 9584,
+    "name": "[RFC9584] RTP Payload Format for Essential Video Coding (EVC)"
+  },
+  {
+    "id": 9585,
+    "name": "[RFC9585] IMAP Response Code for Command Progress Notifications"
+  },
+  {
+    "id": 9586,
+    "name": "[RFC9586] IMAP Extension for Using and Returning Unique Identifiers (UIDs) Only"
+  },
+  {
+    "id": 9587,
+    "name": "[RFC9587] YANG Data Model for OSPFv3 Extended Link State Advertisements (LSAs)"
+  },
+  {
+    "id": 9588,
+    "name": "[RFC9588] Kerberos Simple Password-Authenticated Key Exchange (SPAKE) Pre-authentication"
+  },
+  {
+    "id": 9589,
+    "name": "[RFC9589] On the Use of the Cryptographic Message Syntax (CMS) Signing-Time Attribute in Resource Public Key Infrastructure (RPKI) Signed Objects"
+  },
+  {
+    "id": 9590,
+    "name": "[RFC9590] IMAP Extension for Returning Mailbox METADATA in Extended LIS"
+  },
+  {
+    "id": 9591,
+    "name": "[RFC9591] The Flexible Round-Optimized Schnorr Threshold (FROST) Protocol for Two-Round Schnorr Signatures"
+  },
+  {
+    "id": 9592,
+    "name": "[RFC9592] Retiring the Tao of the IETF"
+  },
+  {
+    "id": 9593,
+    "name": "[RFC9593] Announcing Supported Authentication Methods in the Internet Key Exchange Protocol Version 2 (IKEv2)"
+  },
+  {
+    "id": 9595,
+    "name": "[RFC9595] YANG Schema Item iDentifier (YANG SID)"
+  },
+  {
+    "id": 9596,
+    "name": "[RFC9596] CBOR Object Signing and Encryption (COSE) \"typ\" (type) Header Parameter"
+  },
+  {
+    "id": 9597,
+    "name": "[RFC9597] CBOR Web Token (CWT) Claims in COSE Headers"
+  },
+  {
+    "id": 9598,
+    "name": "[RFC9598] Internationalized Email Addresses in X.509 Certificates"
+  },
+  {
+    "id": 9599,
+    "name": "[RFC9599] Guidelines for Adding Congestion Notification to Protocols that Encapsulate IP"
+  },
+  {
+    "id": 9600,
+    "name": "[RFC9600] TRansparent Interconnection of Lots of Links (TRILL): Explicit Congestion Notification (ECN) Support"
+  },
+  {
+    "id": 9601,
+    "name": "[RFC9601] Propagating Explicit Congestion Notification across IP Tunnel Headers Separated by a Shim"
+  },
+  {
+    "id": 9603,
+    "name": "[RFC9603] Path Computation Element Communication Protocol (PCEP) Extensions for IPv6 Segment Routing"
+  },
+  {
+    "id": 9604,
+    "name": "[RFC9604] Carrying Binding Label/SID in PCE-Based Networks"
+  },
+  {
+    "id": 9605,
+    "name": "[RFC9605] Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media"
+  },
+  {
+    "id": 9606,
+    "name": "[RFC9606] DNS Resolver Information"
+  },
+  {
+    "id": 9607,
+    "name": "[RFC9607] RTP Payload Format for the Secure Communication Interoperability Protocol (SCIP) Codec"
+  },
+  {
+    "id": 9608,
+    "name": "[RFC9608] No Revocation Available for X.509 Public Key Certificates"
+  },
+  {
+    "id": 9611,
+    "name": "[RFC9611] Internet Key Exchange Protocol Version 2 (IKEv2) Support for Per-Resource Child Security Associations (SAs)"
+  },
+  {
+    "id": 9612,
+    "name": "[RFC9612] Bidirectional Forwarding Detection (BFD) Reverse Path for MPLS Label Switched Paths (LSPs)"
+  },
+  {
+    "id": 9613,
+    "name": "[RFC9613] Requirements for Solutions that Support MPLS Network Actions (MNAs)"
+  },
+  {
+    "id": 9614,
+    "name": "[RFC9614] Partitioning as an Architecture for Privacy"
+  },
+  {
+    "id": 9615,
+    "name": "[RFC9615] Automatic DNSSEC Bootstrapping Using Authenticated Signals from the Zone's Operator"
+  },
+  {
+    "id": 9617,
+    "name": "[RFC9617] A YANG Data Model for In Situ Operations, Administration, and Maintenance (IOAM)"
+  },
+  {
+    "id": 9618,
+    "name": "[RFC9618] Updates to X.509 Policy Validation"
+  },
+  {
+    "id": 9619,
+    "name": "[RFC9619] In the DNS, QDCOUNT Is (Usually) One"
+  },
+  {
+    "id": 9624,
+    "name": "[RFC9624] EVPN Broadcast, Unknown Unicast, or Multicast (BUM) Using Bit Index Explicit Replication (BIER)"
+  },
+  {
+    "id": 9625,
+    "name": "[RFC9625] EVPN Optimized Inter-Subnet Multicast (OISM) Forwarding"
+  },
+  {
+    "id": 9629,
+    "name": "[RFC9629] Using Key Encapsulation Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)"
+  },
+  {
+    "id": 9630,
+    "name": "[RFC9630] Multicast On-Path Telemetry Using In Situ Operations, Administration, and Maintenance (IOAM)"
+  },
+  {
+    "id": 9631,
+    "name": "[RFC9631] The IPv6 Compact Routing Header (CRH)"
+  },
+  {
+    "id": 9632,
+    "name": "[RFC9632] Finding and Using Geofeed Data"
+  },
+  {
+    "id": 9637,
+    "name": "[RFC9637] Expanding the IPv6 Documentation Space"
+  },
+  {
+    "id": 9650,
+    "name": "[RFC9650] Revision to Registration Procedures for IS-IS Neighbor Link-Attribute Bit Values"
+  },
+  {
+    "id": 9654,
+    "name": "[RFC9654] Online Certificate Status Protocol (OCSP) Nonce Extension"
   }
 ]
